@@ -1,48 +1,49 @@
+ //Arcade Shooter game
+
+
+                
 var AN = AN || {};
-
-var pic = new Image();
-var canvas;
-var context;
-// var img = new Image();
-// img.src = "img/reindeer.png";
-
 var x = 0;
 var y = 0;
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+var img = new Image();
+var nos = new Image();
+nos.src = "img/nos.png";
+img.src = "img/reindeer.png";
 
-// img.onload = function() {
-//     context.drawImage(img, 200 , 0, 500, 1000, );
-// }
-
-AN.initialize = function() {
-  //load canvas
-  canvas = $('#canvas');
-  canvas.mousemove(AN.moveMouse);
-  context = canvas[0].getContext('2d');
-  //load image
-  pic.src = "img/nos.png";
+img.onload = function() {
+     context.drawImage(img, 200 , 0, 500, 1000, );
 };
-
+    
+     AN.initialize = function() {
+        //load canvas
+        canvas = $('#canvas');
+        canvas.mousemove(AN.moveMouse);
+        context = canvas[0].getContext('2d');   
+ };
+// console.log(canvas);
 AN.moveMouse = function (e) {
-  var element = $(pic);
-  var t = 0; //0-1, this is what you change in animation loop
-  var position = getMousePosition(e);
-  function myLoop() {  
-    context.clearRect(0, 0, canvas.width(), canvas.height());
-
-    x += EasingFunctions.easeInOutQuad(t) * (position.x - x);
-    y += EasingFunctions.easeInOutQuad(t) * (position.y - y);
-
-    // set element by tx
-    context.drawImage(pic, x, y, 120, 80,);
-
-    if (t < 1) {
-      t += 0.01; //determines speed
-      requestAnimationFrame(myLoop);
-      //setTimeout(myLoop, 16); //option to above
+    var element = $(nos);
+    var t = 0; //0-1, this is what you change in animation loop
+    var position = getMousePosition(e);
+    function myLoop() {  
+      context.clearRect(0, 0, canvas.width(), canvas.height());
+  
+      x += EasingFunctions.easeInOutQuad(t) * (position.x - x);
+      y += EasingFunctions.easeInOutQuad(t) * (position.y - y);
+  
+      // set element by tx
+      context.drawImage(pic, x, y, pic.width, pic.height);
+  
+      if (t < 1) {
+        t += 0.01; //determines speed
+        requestAnimationFrame(myLoop);
+        //setTimeout(myLoop, 16); //option to above
+      }
     }
-  }
-  myLoop();
-};
+    myLoop();
+  };
 
 EasingFunctions = {
   linear: function(t) {
@@ -97,3 +98,8 @@ $(document).ready(function() {
   //initialize funtion
   AN.initialize();
 });
+
+// Start the game
+// context.drawImage(img, 10, 10)
+// menu();
+// canvas.focus();
